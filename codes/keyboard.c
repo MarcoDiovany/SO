@@ -2,8 +2,7 @@
 #define KEYBOARD_STATUS_PORT 0x64
 
 #include "keyboard_map.h"
-
-char buff;
+char buff=0;
 uint8 CAPSON=0,SHIFT=0;
 void kb_init(void){
     /* 0xFD is 11111101 - enables only IRQ1 (keyboard)*/

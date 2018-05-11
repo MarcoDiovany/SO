@@ -1,5 +1,5 @@
 
-extern void global vga_interrupt(void);
+extern void vga_interrupt(void);
 unsigned char * memvga = 0xA0000;
 
 static void putpixel(int x,int y, int color) {

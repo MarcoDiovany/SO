@@ -15,6 +15,8 @@
     typedef s32 acpi_native_int;
     typedef char *va_list;
 
+
+
     extern unsigned char keyboard_map[128];
     extern void keyboard_handler(void);
     extern char read_port(unsigned short port);
