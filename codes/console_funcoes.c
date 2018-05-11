@@ -50,12 +50,12 @@ void brainf(char *arg){
         if(c!='\n')
         {
             if(strlen(arg)){
-                kprint("%s\n%cExecutando:",comando,0xd4);putchar('\n');
+                kprint("%s\n%cExecutando:",comando,0xe4);putchar('\n');
             }else{
-                gets(comando);kprint("\n%cExecutando:",0xd4);putchar('\n');
+                gets(comando);kprint("\n%cExecutando:",0xe4);putchar('\n');
             }
         }else{
-            kprint("%s\n%cExecutando Novamente:",comando,0xd4);putchar('\n');
+            kprint("%s\n%cExecutando Novamente:",comando,0xe4);putchar('\n');
         }
         brainDeco(comando);
         kprint("\nPrograma Finalizado:\n");
@@ -63,7 +63,7 @@ void brainf(char *arg){
         if(c == 27)
         {
                 break;
-        }	
+        }
         clear_screen();
     }
     kprint("\nbrainf_coder finalizado...\n");

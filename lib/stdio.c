@@ -1,6 +1,6 @@
 void kputcl(const uint16 c){
     if(current_loc > SCREENSIZE)current_loc = 0;
-    if((c&0x00ff) == 8){	
+    if((c&0x00ff) == 8){
             while(!(vidtela[current_loc]&0x00ff))
             {
                     current_loc--;
@@ -30,10 +30,12 @@ char tryGetch(){
     return buff;
 }
 char getch(){
+    atualiza_cursor();
     kb_init();
     while(!buff)
     {delay();}
     kb_close_init();
+    seta_cursor(0,0);
     return buff;
 }
 char getche(){
@@ -79,7 +81,7 @@ char *gets(char *buf){
         p--;
       }
     } else if (ch == '\r' || ch =='\n' || ch >= ' ') {
-      
+
       if (ch == '\r') putchar('\n');
       if (ch == '\n' || ch == '\r') break;
 	putchar(ch);

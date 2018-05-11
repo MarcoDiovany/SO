@@ -48,13 +48,7 @@ void keyboard_handler_main(void)
         }
         c = keyboard_map[(unsigned char) keycode];
         if((CAPSON != SHIFT)){
-            if(SHIFT &&(c >=48) && (c<=61))
-            {
-                c = keyboard_map_numeric[c-48];
-            }else if( c > 96 && c < 123){
-                c &=0xDF;
-            }
-                
+            c= ASC_CAP[c];
         }
         buff = c;
         SHIFT = 0;
