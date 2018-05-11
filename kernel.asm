@@ -1,5 +1,4 @@
 [BITS 32]
-
 global start
 
 start:
@@ -41,6 +40,8 @@ global read_port
 global write_port
 global load_idt
 global delay
+global vga_interrupt
+global shutdown
 
 extern keyboard_handler_main
 
@@ -61,7 +62,34 @@ load_idt:
 	lidt [edx]
 	sti 				;turn on interrupts
 	ret
+shutdown:
+sti
+mov ah,53h              ;this is an APM command
+mov al,08h              ;Change the state of power management...
+mov bx,0001h            ;...on all devices to...
+mov cx,0001h            ;...power management on.
+int 15h                 ;call the BIOS function through interrupt 15h
 
+;Set the power state for all devices
+mov ah,53h              ;this is an APM command
+mov al,07h              ;Set the power state...
+mov bx,0001h            ;...on all devices to...
+mov cx,03h    ;see above
+int 15h                 ;call the BIOS function through interrupt 15h
+cli
+ret
+
+vga_interrupt:
+pusha
+sti
+;AH = 00h
+mov ah,0
+mov al,13h
+int 0x10
+cli
+popa
+
+ret
 keyboard_handler:                 
 	call    keyboard_handler_main
 	iretd
@@ -75,6 +103,7 @@ delay:
 		dec cx
 		jnz delRep
 		ret	
+
 
 entrarkernel:
 	pusha
