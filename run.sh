@@ -10,16 +10,15 @@ grub-file --is-x86-multiboot kernel.bin
 
 mkdir -p bin/
 cp kernel.bin bin/kernel.bin
-cp boot/grub.img bin/SO.img
 	
-mkdir -p ponto_montagem_grub_erdos
+mkdir -p ponto_montagem_grub
 	
-mount -t auto bin/SO.img ponto_montagem_grub_erdos/
+mount -t auto bin/SO.img ponto_montagem_grub/
 	
-rm -fv ponto_montagem_grub_erdos/kernel.bin
+rm -fv ponto_montagem_grub/kernel.bin
 	
-cp -v bin/kernel.bin ponto_montagem_grub_erdos/
+cp -v bin/kernel.bin ponto_montagem_grub/
 	
-umount ponto_montagem_grub_erdos/
+umount ponto_montagem_grub/
 
 qemu-system-i386 -fda bin/SO.img
