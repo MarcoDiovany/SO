@@ -17,30 +17,16 @@ struct IDT_entry IDT[IDT_SIZE];
 void idt_init(void)
 {
 	unsigned long keyboard_address;
-	unsigned long vgaint_address;
-	unsigned long shutint_address;
 	unsigned long idt_address;
 	unsigned long idt_ptr[2];
 
 	/* populate IDT entry of keyboard's interrupt */
 	keyboard_address = (unsigned long)keyboard_handler;
-	vgaint_address = (unsigned long)vga_interrupt;
-	shutint_address = (unsigned long)shutdown;
 	IDT[0x21].offset_lowerbits = keyboard_address & 0xffff;
 	IDT[0x21].selector = KERNEL_CODE_SEGMENT_OFFSET;
 	IDT[0x21].zero = 0;
 	IDT[0x21].type_attr = INTERRUPT_GATE;
 	IDT[0x21].offset_higherbits = (keyboard_address & 0xffff0000) >> 16;
-	IDT[0x10].offset_lowerbits = vgaint_address & 0xffff;
-	IDT[0x10].selector = KERNEL_CODE_SEGMENT_OFFSET;
-	IDT[0x10].zero = 0;
-	IDT[0x10].type_attr = INTERRUPT_GATE;
-	IDT[0x10].offset_higherbits = (vgaint_address & 0xffff0000) >> 16;
-	IDT[0x15].offset_lowerbits = shutint_address & 0xffff;
-	IDT[0x15].selector = KERNEL_CODE_SEGMENT_OFFSET;
-	IDT[0x15].zero = 0;
-	IDT[0x15].type_attr = INTERRUPT_GATE;
-	IDT[0x15].offset_higherbits = (shutint_address & 0xffff0000) >> 16;
 
 	/*     Ports
 	*	 PIC1	PIC2

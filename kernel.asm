@@ -88,7 +88,6 @@ mov al,13h
 int 0x10
 cli
 popa
-
 ret
 keyboard_handler:                 
 	call    keyboard_handler_main
@@ -106,6 +105,9 @@ delay:
 
 
 entrarkernel:
+	pusha
+	call vga_interrupt
+	popa
 	pusha
 	cli 				;block interrupts
 	extern kmain
